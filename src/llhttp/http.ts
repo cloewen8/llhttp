@@ -245,6 +245,8 @@ export class HTTP {
       .select(H_METHOD_MAP, this.store('method',
         this.update('type', TYPE.REQUEST, 'req_first_space_before_url')))
       .match('HTTP/', this.update('type', TYPE.RESPONSE, 'res_http_major'))
+      .match('SOURCETABLE', this.update('type', TYPE.RESPONSE, 'res_ntrip_major'))
+      .match('ICY', this.update('type', TYPE.RESPONSE, 'res_ntrip_major'))
       .otherwise(p.error(ERROR.INVALID_CONSTANT, 'Invalid word encountered'));
 
     const checkVersion = (destination: string): Node => {
@@ -270,6 +272,8 @@ export class HTTP {
     // Response
     n('start_res')
       .match('HTTP/', n('res_http_major'))
+      .match('SOURCETABLE', this.update('type', TYPE.RESPONSE, 'res_ntrip_major'))
+      .match('ICY', this.update('type', TYPE.RESPONSE, 'res_ntrip_major'))
       .otherwise(p.error(ERROR.INVALID_CONSTANT, 'Expected HTTP/'));
 
     n('res_http_major')
@@ -283,6 +287,12 @@ export class HTTP {
     n('res_http_minor')
       .select(MINOR, this.store('http_minor', checkVersion('res_http_end')))
       .otherwise(p.error(ERROR.INVALID_VERSION, 'Invalid minor version'));
+
+    n('res_ntrip_major')
+      .peek('1', this.store('http_major', 'res_ntrip_minor'));
+
+    n('res_ntrip_minor')
+      .peek('1', this.store('http_minor', 'res_http_end'));
 
     n('res_http_end')
       .match(' ', this.update('status_code', 0, 'res_status_code'))
