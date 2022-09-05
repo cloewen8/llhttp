@@ -30,6 +30,8 @@ const NODES: ReadonlyArray<string> = [
   'res_http_dot',
   'res_http_minor',
   'res_http_end',
+  'res_ntrip_major',
+  'res_ntrip_minor',
   'res_status_code',
   'res_status_code_otherwise',
   'res_status_start',
@@ -289,10 +291,10 @@ export class HTTP {
       .otherwise(p.error(ERROR.INVALID_VERSION, 'Invalid minor version'));
 
     n('res_ntrip_major')
-      .peek('1', this.store('http_major', 'res_ntrip_minor'));
+      .otherwise(this.update('http_major', 1, 'res_ntrip_minor'));
 
     n('res_ntrip_minor')
-      .peek('1', this.store('http_minor', 'res_http_end'));
+      .otherwise(this.update('http_minor', 1, 'res_http_end'));
 
     n('res_http_end')
       .match(' ', this.update('status_code', 0, 'res_status_code'))
