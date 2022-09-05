@@ -306,5 +306,6 @@ run('response/invalid');
 run('response/finish');
 run('request/lenient-version');
 run('response/pausing');
+run('response/ntrip');
 
 run('url');
