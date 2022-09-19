@@ -177,6 +177,8 @@ function run(name: string): void {
           types = [ 'response-lenient-keep-alive' ];
         } else if (meta.type === 'response-lenient-version') {
           types = [ 'response-lenient-version' ];
+        } else if (meta.type === 'response-lenient-ntrip') {
+          types = [ 'response-lenient-ntrip' ];
         } else if (meta.type === 'response-only') {
           types = [ 'response' ];
         } else if (meta.type === 'request-finish') {

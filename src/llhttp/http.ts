@@ -272,8 +272,26 @@ export class HTTP {
     // Response
     n('start_res')
       .match('HTTP/', n('res_http_major'))
-      .match('SOURCETABLE', this.update('type', TYPE.RESPONSE, 'res_ntrip_major'))
-      .match('ICY', this.update('type', TYPE.RESPONSE, 'res_ntrip_major'))
+      .match(
+        'SOURCETABLE',
+        this.testLenientFlags(
+          LENIENT_FLAGS.NTRIP, 
+          {
+            1: this.update('type', TYPE.RESPONSE, 'res_ntrip_major')
+          },
+          p.error(ERROR.INVALID_VERSION, 'Invalid major version')
+        )
+      )
+      .match(
+        'ICY',
+        this.testLenientFlags(
+          LENIENT_FLAGS.NTRIP, 
+          {
+            1: this.update('type', TYPE.RESPONSE, 'res_ntrip_major')
+          },
+          p.error(ERROR.INVALID_VERSION, 'Invalid major version')
+        )
+      )
       .otherwise(p.error(ERROR.INVALID_CONSTANT, 'Expected HTTP/'));
 
     n('res_http_major')

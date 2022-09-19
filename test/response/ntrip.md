@@ -3,7 +3,7 @@ NTRIP
 
 ### SOURCETABLE protocol
 
-<!-- meta={"type": "response-only"} -->
+<!-- meta={"type": "response-lenient-ntrip"} -->
 ```http
 SOURCETABLE 200 OK
 
@@ -19,7 +19,7 @@ off=22 headers complete status=200 v=1/1 flags=0 content_length=0
 
 ### ICY protocol
 
-<!-- meta={"type": "response-only"} -->
+<!-- meta={"type": "response-lenient-ntrip"} -->
 ```http
 ICY 200 OK
 

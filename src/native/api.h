@@ -260,6 +260,22 @@ void llhttp_set_lenient_keep_alive(llhttp_t* parser, int enabled);
  */
 void llhttp_set_lenient_transfer_encoding(llhttp_t* parser, int enabled);
 
+/*
+ * Enables/disables lenient handling of NTRIP revision 1.
+ *
+ * Normally `llhttp` would error when a `SOURCETABLE` or `ICY` (I Can Yell) http
+ * version header or an RTCM body without a standard http status-line ending is
+ * encountered. This is important to prevent garbage data from being interpreted
+ * as a valid response, but may not be desirable when working with a Networked
+ * Transport of RTCM Protocol (NTRIP) revision 1 response. With this flag valid
+ * NTRIP responses are parsed.
+ *
+ * This is not applicable with NTRIP revision 2 which resolves HTTP violations.
+ *
+ * **(USE AT YOUR OWN RISK)**
+ */
+void llhttp_set_lenient_ntrip(llhttp_t* parser, int enabled);
+
 #ifdef __cplusplus
 }  /* extern "C" */
 #endif

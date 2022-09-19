@@ -13,6 +13,7 @@ export type TestType = 'request' | 'response' | 'request-lenient-headers' |
   'request-lenient-keep-alive' | 'response-lenient-keep-alive' |
   'request-lenient-version' | 'response-lenient-version' |
   'request-finish' | 'response-finish' |
+  'response-lenient-ntrip' |
   'none' | 'url';
 
 export { FixtureResult };
@@ -69,7 +70,8 @@ export async function build(
       ty === 'request-lenient-keep-alive' ||
       ty === 'response-lenient-keep-alive' ||
       ty === 'request-lenient-version' ||
-      ty === 'response-lenient-version') {
+      ty === 'response-lenient-version' ||
+      ty === 'response-lenient-ntrip') {
     extra.push(
       `-DLLPARSE__TEST_INIT=llhttp__test_init_${ty.replace(/-/g, '_')}`);
   } else if (ty === 'request-finish' || ty === 'response-finish') {

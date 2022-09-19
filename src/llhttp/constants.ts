@@ -67,6 +67,7 @@ export enum LENIENT_FLAGS {
   KEEP_ALIVE = 1 << 2,
   TRANSFER_ENCODING = 1 << 3,
   VERSION = 1 << 4,
+  NTRIP = 1 << 5,
 }
 
 export enum METHODS {
